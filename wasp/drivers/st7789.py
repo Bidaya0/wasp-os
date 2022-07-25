@@ -57,7 +57,7 @@ class ST7789(object):
 
         for cmd in (
             (_COLMOD,   b'\x05'), # MCU will send 16-bit RGB565
-            (_MADCTL,   b'\x00'), # Left to right, top to bottom
+            (_MADCTL,   b'\x40'), # Left to right, top to bottom
             #(_INVOFF,   None), # Results in odd palette
             (_INVON,   None),
             (_NORON,   None),
@@ -67,7 +67,7 @@ class ST7789(object):
                 self.write_data(cmd[1])
         self.fill(0)
         self.write_cmd(_DISPON)
-
+        self.invert(False)
         # From the point we sent the SLPOUT there must be a
         # 120ms gap before any subsequent SLPIN. In most cases
         # (i.e. when the SPI baud rate is slower than 8M then
